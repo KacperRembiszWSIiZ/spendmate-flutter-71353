@@ -57,14 +57,45 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     }
   }
 
-  Future<void> _pickReceiptImage() async {
+  Future<void> _showReceiptImageSourcePicker() async {
+    final source = await showModalBottomSheet<ImageSource>(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_camera_rounded),
+                title: const Text('Zrób zdjęcie'),
+                onTap: () => Navigator.of(context).pop(ImageSource.camera),
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library_rounded),
+                title: const Text('Wybierz z galerii'),
+                onTap: () => Navigator.of(context).pop(ImageSource.gallery),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (source == null || !mounted) {
+      return;
+    }
+
+    await _pickReceiptImage(source);
+  }
+
+  Future<void> _pickReceiptImage(ImageSource source) async {
     try {
       final image = await _imagePicker.pickImage(
-        source: ImageSource.gallery,
+        source: source,
         imageQuality: 82,
       );
 
-      if (image != null) {
+      if (image != null && mounted) {
         setState(() => _selectedImage = image);
       }
     } catch (_) {
@@ -222,9 +253,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                             ),
                           ),
                           TextButton.icon(
-                            onPressed: _pickReceiptImage,
-                            icon: const Icon(Icons.photo_library_rounded),
-                            label: const Text('Wybierz'),
+                            onPressed: _showReceiptImageSourcePicker,
+                            icon: const Icon(Icons.add_a_photo_rounded),
+                            label: const Text('Dodaj'),
                           ),
                         ],
                       ),
@@ -250,7 +281,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       ] else ...[
                         const SizedBox(height: 6),
                         const Text(
-                          'Opcjonalnie dodaj zdjęcie z galerii.',
+                          'Opcjonalnie zrób zdjęcie paragonu albo wybierz je z galerii.',
                           style: appCaptionStyle,
                         ),
                       ],

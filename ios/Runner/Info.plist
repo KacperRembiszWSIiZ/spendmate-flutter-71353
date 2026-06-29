@@ -28,6 +28,8 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>SpendMate potrzebuje dostępu do galerii, aby dodać zdjęcie paragonu do wydatku.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>SpendMate potrzebuje dostępu do aparatu, aby zrobić zdjęcie paragonu do wydatku.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -37,13 +37,13 @@ Zdjęcia paragonów są kopiowane do lokalnego folderu aplikacji jako pliki. W b
 Projekt używa Fluttera przez FVM. Zalecana wersja znajduje się w pliku `.fvmrc`.
 
 ```bash
-flutter pub get
-flutter run
-```
-
-Jeżeli używasz FVM bez globalnego aliasu Fluttera:
-
-```bash
 fvm flutter pub get
 fvm flutter run
+```
+
+Jeżeli masz skonfigurowany globalny alias Fluttera z FVM:
+
+```bash
+flutter pub get
+flutter run
 ```
